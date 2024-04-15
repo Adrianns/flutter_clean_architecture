@@ -1,16 +1,13 @@
 # clean_architecture_course
 
-A new Flutter project.
+Flutter Repository with a serie of clean architecture practices
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+The repository has a serie of 
+[kata](https://www.parkavenuesolutions.com/what-is-kata) (mini exercises) where in each step we have a new concept from clean architecture
 
-A few resources to get you started if this is your first Flutter project:
+- [Clean Architecture Course by XurxoDev](https://docs.flutter.dev/get-started/codelab)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+For help getting more information or resolve doubts contact me
