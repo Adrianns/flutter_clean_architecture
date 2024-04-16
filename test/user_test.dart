@@ -19,6 +19,30 @@ void main() {
       expect(user.password.value, 'Abc12345');
     });
 
+    test('when create a user with an incorrect password should throw an error',
+        () {
+      expect(
+          () => User(
+                id: '1',
+                name: 'John Doe',
+                email: Email('john.doe@example.com'),
+                password: Password('a'),
+              ),
+          throwsA(isA<FormatException>()));
+    });
+
+    test('when create a user with an incorrect email should throw an error',
+        () {
+      expect(
+          () => User(
+                id: '1',
+                name: 'John Doe',
+                email: Email('john.doexample.com'),
+                password: Password('a134253654'),
+              ),
+          throwsA(isA<FormatException>()));
+    });
+
     test('should be equal to another User object with the same id', () {
       final user1 = User(
         id: '1',
