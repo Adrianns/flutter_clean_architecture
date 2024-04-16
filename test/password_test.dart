@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:clean_architecture_course/value_objects/password.dart';
+import 'package:clean_architecture_course/users/domain/value_objects/password.dart';
 
 void main() {
   group('Password', () {

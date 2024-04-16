@@ -1,5 +1,5 @@
-import 'package:clean_architecture_course/value_objects/email.dart';
-import 'package:clean_architecture_course/value_objects/password.dart';
+import 'package:clean_architecture_course/users/domain/value_objects/email.dart';
+import 'package:clean_architecture_course/users/domain/value_objects/password.dart';
 
 class User {
   String id;
