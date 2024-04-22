@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:clean_architecture_course/users/domain/entities/user.dart';
-import 'package:clean_architecture_course/users/domain/value_objects/email.dart';
-import 'package:clean_architecture_course/users/domain/value_objects/password.dart';
+import 'package:clean_architecture_course/app/features/users/domain/entities/user.dart';
+import 'package:clean_architecture_course/app/features/users/domain/value_objects/email.dart';
+import 'package:clean_architecture_course/app/features/users/domain/value_objects/password.dart';
 
 void main() {
   group('User', () {
