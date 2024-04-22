@@ -7,7 +7,7 @@ class GetAllContactsUseCase {
 
   GetAllContactsUseCase(this.userRepository);
 
-  Either<Exception, List<Contact>> execute() {
+  Future<Either<Exception, List<Contact>>> execute() async {
     final users = userRepository.getAllContacts();
     return users;
   }

@@ -7,8 +7,19 @@ import 'package:equatable/equatable.dart';
 part 'contacts_state.dart';
 
 class ContactsCubit extends Cubit<ContactsState> {
+  final CreateContactUseCase createContactUseCase;
+  final GetAllContactsUseCase getAllContactsUseCase;
   ContactsCubit({
-    required CreateContactUseCase createContact,
-    required GetAllContactsUseCase getAllContacts,
-  }) : super(ContactsInitialState());
+    required this.createContactUseCase,
+    required this.getAllContactsUseCase,
+  }) : super(ContactsInitial());
+
+  void getAllContacts() async {
+    emit(ContactsLoading());
+    final result = await getAllContactsUseCase.execute();
+    result.fold(
+      (error) => emit(ContactsError(error as String)),
+      (contacts) => emit(ContactsLoaded(contacts)),
+    );
+  }
 }
