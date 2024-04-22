@@ -1,64 +1,51 @@
+import 'package:clean_architecture_course/app/features/contacts/domain/value_objects/phone_number.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:clean_architecture_course/app/features/users/domain/entities/user.dart';
-import 'package:clean_architecture_course/app/features/users/domain/value_objects/email.dart';
-import 'package:clean_architecture_course/app/features/users/domain/value_objects/password.dart';
+import 'package:clean_architecture_course/app/features/contacts/domain/entities/contact.dart';
+import 'package:clean_architecture_course/app/features/contacts/domain/value_objects/email.dart';
 
 void main() {
-  group('User', () {
-    test('should create a valid user', () {
-      final user = User(
+  group('contact', () {
+    test('should create a valid contact', () {
+      final contact = Contact(
         id: '1',
         name: 'John Doe',
         email: Email('john.doe@example.com'),
-        password: Password('Abc12345'),
+        phone: PhoneNumber('+598922322655'),
       );
 
-      expect(user.id, '1');
-      expect(user.name, 'John Doe');
-      expect(user.email.value, 'john.doe@example.com');
-      expect(user.password.value, 'Abc12345');
+      expect(contact.id, '1');
+      expect(contact.name, 'John Doe');
+      expect(contact.email.value, 'john.doe@example.com');
+      expect(contact.phone.value, '+598922322655');
     });
 
-    test('when create a user with an incorrect password should throw an error',
+    test('when create a contact with an incorrect email should throw an error',
         () {
       expect(
-          () => User(
-                id: '1',
-                name: 'John Doe',
-                email: Email('john.doe@example.com'),
-                password: Password('a'),
-              ),
-          throwsA(isA<FormatException>()));
-    });
-
-    test('when create a user with an incorrect email should throw an error',
-        () {
-      expect(
-          () => User(
+          () => Contact(
                 id: '1',
                 name: 'John Doe',
                 email: Email('john.doexample.com'),
-                password: Password('a134253654'),
+                phone: PhoneNumber('+598922322655'),
               ),
           throwsA(isA<FormatException>()));
     });
 
-    test('should be equal to another User object with the same id', () {
-      final user1 = User(
+    test('should be equal to another Contact object with the same id', () {
+      final contact1 = Contact(
         id: '1',
         name: 'John Doe',
         email: Email('john.doe@example.com'),
-        password: Password('Abc12345'),
+        phone: PhoneNumber('+598922322655'),
       );
 
-      final user2 = User(
+      final contact2 = Contact(
         id: '1',
         name: 'Jane Smith',
         email: Email('jane.smith@example.com'),
-        password: Password('Xyz98765'),
+        phone: PhoneNumber('+598922322655'),
       );
-
-      expect(user1, equals(user2));
+      expect(contact1, equals(contact2));
     });
   });
 }

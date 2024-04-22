@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:clean_architecture_course/app/features/users/domain/value_objects/email.dart';
+import 'package:clean_architecture_course/app/features/contacts/domain/value_objects/email.dart';
 
 void main() {
   group('Email', () {
