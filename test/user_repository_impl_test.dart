@@ -1,43 +1,43 @@
-import 'package:clean_architecture_course/app/features/users/domain/repositories/users_repository.dart';
-import 'package:clean_architecture_course/app/features/users/domain/value_objects/email.dart';
-import 'package:clean_architecture_course/app/features/users/domain/value_objects/password.dart';
+import 'package:clean_architecture_course/app/features/contacts/domain/repositories/contacts_repository.dart';
+import 'package:clean_architecture_course/app/features/contacts/domain/value_objects/email.dart';
+import 'package:clean_architecture_course/app/features/contacts/domain/value_objects/phone_number.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:clean_architecture_course/app/features/users/data/repositories/users_repository_impl.dart';
-import 'package:clean_architecture_course/app/features/users/domain/entities/user.dart';
+import 'package:clean_architecture_course/app/features/contacts/data/repositories/contacts_repository_impl.dart';
+import 'package:clean_architecture_course/app/features/contacts/domain/entities/contact.dart';
 
 void main() {
   group('UserRepository', () {
-    late UsersRepository userRepository;
-    final user = User(
+    late ContactsRepository userRepository;
+    final user = Contact(
       id: '1',
       name: 'John Doe',
       email: Email('john.doe@example.com'),
-      password: Password('Abc12345'),
+      phone: PhoneNumber('+598922322655'),
     );
-    final user2 = User(
+    final user2 = Contact(
       id: '1',
       name: 'Jane Smith',
       email: Email('jane.smith@example.com'),
-      password: Password('Xyz98765'),
+      phone: PhoneNumber('+598922322655'),
     );
     setUp(() {
-      userRepository = UsersRepositoryImpl();
+      userRepository = ContactsRepositoryImpl();
     });
 
     test('should create a user and return a user', () {
-      final result = userRepository.createUser(user);
+      final result = userRepository.createContact(user);
       expect(result.isRight, true);
     });
 
     test('should return a list of users when there are users', () {
-      userRepository.createUser(user);
-      userRepository.createUser(user2);
-      final result = userRepository.getAllUsers();
+      userRepository.createContact(user);
+      userRepository.createContact(user2);
+      final result = userRepository.getAllContacts();
       expect(result.fold((l) => null, (r) => r), isA<List>());
     });
 
     test('should return Exception when there are no users', () {
-      final result = userRepository.getAllUsers();
+      final result = userRepository.getAllContacts();
       expect(result.isLeft, true);
       expect(result.fold((l) => l, (r) => null), isA<Exception>());
     });
