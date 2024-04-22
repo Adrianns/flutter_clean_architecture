@@ -1,13 +1,13 @@
-import 'package:clean_architecture_course/users/domain/repositories/user_repository.dart';
-import 'package:clean_architecture_course/users/domain/value_objects/email.dart';
-import 'package:clean_architecture_course/users/domain/value_objects/password.dart';
+import 'package:clean_architecture_course/app/features/users/domain/repositories/users_repository.dart';
+import 'package:clean_architecture_course/app/features/users/domain/value_objects/email.dart';
+import 'package:clean_architecture_course/app/features/users/domain/value_objects/password.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:clean_architecture_course/users/data/repositories/user_repository_impl.dart';
-import 'package:clean_architecture_course/users/domain/entities/user.dart';
+import 'package:clean_architecture_course/app/features/users/data/repositories/users_repository_impl.dart';
+import 'package:clean_architecture_course/app/features/users/domain/entities/user.dart';
 
 void main() {
   group('UserRepository', () {
-    late UserRepository userRepository;
+    late UsersRepository userRepository;
     final user = User(
       id: '1',
       name: 'John Doe',
@@ -21,7 +21,7 @@ void main() {
       password: Password('Xyz98765'),
     );
     setUp(() {
-      userRepository = UserRepositoryImpl();
+      userRepository = UsersRepositoryImpl();
     });
 
     test('should create a user and return a user', () {
