@@ -10,13 +10,25 @@ void main() {
         id: '1',
         name: 'John Doe',
         email: Email('john.doe@example.com'),
-        phone: PhoneNumber('+598922322655'),
+        phone: PhoneNumber('+59898105102'),
       );
 
       expect(contact.id, '1');
       expect(contact.name, 'John Doe');
       expect(contact.email.value, 'john.doe@example.com');
-      expect(contact.phone.value, '+598922322655');
+      expect(contact.phone.value, '+59898105102');
+    });
+
+    test('when create a contact with an phone number should throw an error',
+        () {
+      expect(
+          () => Contact(
+                id: '1',
+                name: 'John Doe',
+                email: Email('john.doe@example.com'),
+                phone: PhoneNumber('+598922322655435455'),
+              ),
+          throwsA(isA<FormatException>()));
     });
 
     test('when create a contact with an incorrect email should throw an error',
@@ -26,7 +38,7 @@ void main() {
                 id: '1',
                 name: 'John Doe',
                 email: Email('john.doexample.com'),
-                phone: PhoneNumber('+598922322655'),
+                phone: PhoneNumber('+59898105102'),
               ),
           throwsA(isA<FormatException>()));
     });
@@ -36,14 +48,14 @@ void main() {
         id: '1',
         name: 'John Doe',
         email: Email('john.doe@example.com'),
-        phone: PhoneNumber('+598922322655'),
+        phone: PhoneNumber('+59898105102'),
       );
 
       final contact2 = Contact(
         id: '1',
         name: 'Jane Smith',
         email: Email('jane.smith@example.com'),
-        phone: PhoneNumber('+598922322655'),
+        phone: PhoneNumber('+59898105102'),
       );
       expect(contact1, equals(contact2));
     });
