@@ -3,17 +3,17 @@ import 'package:clean_architecture_course/app/features/contacts/domain/entities/
 import 'package:clean_architecture_course/app/features/contacts/domain/repositories/contacts_repository.dart';
 
 class ContactsRepositoryImpl implements ContactsRepository {
-  List<Contact> users = [];
+  List<Contact> contacts = [];
   @override
-  Either<Exception, Contact> createContact(Contact user) {
-    users.add(user);
-    return Either.right(user);
+  Either<Exception, Contact> createContact(Contact contact) {
+    contacts.add(contact);
+    return Either.right(contact);
   }
 
   @override
   Either<Exception, List<Contact>> getAllContacts() {
-    return users.isEmpty
-        ? Either.left(Exception('No users found'))
-        : Either.right(users);
+    return contacts.isEmpty
+        ? Either.left(Exception('No contacts found'))
+        : Either.right(contacts);
   }
 }
