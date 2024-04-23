@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ContactListPage extends StatelessWidget {
-  const ContactListPage({Key? key}) : super(key: key);
+  const ContactListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class ContactListPage extends StatelessWidget {
                     leading: CircleAvatar(
                       backgroundColor: Colors.black,
                       child: Text(
-                        contact.name.substring(0, 2),
+                        '${contact.name[0]}${contact.name[contact.name.indexOf(' ') + 1]}',
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
