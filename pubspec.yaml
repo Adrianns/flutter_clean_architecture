@@ -36,11 +36,11 @@ dependencies:
   get_it: ^7.7.0
 
 dev_dependencies:
-  mockito: ^5.4.4
   bloc_test: ^9.1.7
   flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
+  mocktail: ^1.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

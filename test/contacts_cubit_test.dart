@@ -5,7 +5,7 @@ import 'package:clean_architecture_course/app/features/contacts/domain/usecases/
 import 'package:clean_architecture_course/app/features/contacts/domain/usecases/get_all_contact_usecase.dart';
 import 'package:clean_architecture_course/app/features/contacts/presentation/cubit/contacts_cubit.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 class MockCreateContactUseCase extends Mock implements CreateContactUseCase {}
 
@@ -37,7 +37,7 @@ void main() {
     blocTest<ContactsCubit, ContactsState>(
       'getAllContacts should emit ContactsLoading and ContactsLoaded',
       build: () {
-        when(mockGetAllContactsUseCase.execute())
+        when(mockGetAllContactsUseCase.execute)
             .thenAnswer((_) async => Either.right(<Contact>[]));
         return contactsCubit;
       },
@@ -51,7 +51,7 @@ void main() {
     blocTest<ContactsCubit, ContactsState>(
       'getAllContacts should emit ContactsLoading and ContactsError',
       build: () {
-        when(mockGetAllContactsUseCase.execute())
+        when(mockGetAllContactsUseCase.execute)
             .thenAnswer((_) async => Either.left(Exception()));
         return contactsCubit;
       },

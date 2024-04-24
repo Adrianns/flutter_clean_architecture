@@ -7,16 +7,17 @@ import 'package:clean_architecture_course/app/features/contacts/presentation/pag
 import 'package:clean_architecture_course/app/features/contacts/presentation/cubit/contacts_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 class MockContactsCubit extends MockCubit<ContactsState>
     implements ContactsCubit {}
 
 void main() {
-  MockContactsCubit mockContactsCubit = MockContactsCubit();
+  late MockContactsCubit mockContactsCubit;
   List<Contact> contacts = [];
 
   setUp(() {
+    mockContactsCubit = MockContactsCubit();
     for (int i = 0; i <= 18; i++) {
       contacts.add(
         Contact(
@@ -31,7 +32,7 @@ void main() {
   group('ContactListPage', () {
     testWidgets('should display loading indicator when contacts are loading',
         (WidgetTester tester) async {
-      when(mockContactsCubit.state).thenReturn(ContactsLoading());
+      when(() => mockContactsCubit.state).thenReturn(ContactsLoading());
 
       await tester.pumpWidget(
         MaterialApp(
@@ -47,7 +48,7 @@ void main() {
 
     testWidgets('should display "No Contacts" when contacts list is empty',
         (WidgetTester tester) async {
-      when(mockContactsCubit.state).thenReturn(ContactsLoaded(contacts));
+      when(() => mockContactsCubit.state).thenReturn(ContactsLoaded(contacts));
 
       await tester.pumpWidget(
         MaterialApp(
@@ -63,13 +64,13 @@ void main() {
 
     testWidgets('should display contacts list when contacts are loaded',
         (WidgetTester tester) async {
-      when(mockContactsCubit.state).thenReturn(ContactsLoaded(contacts));
+      when(() => mockContactsCubit.state).thenReturn(ContactsLoaded(contacts));
 
       await tester.pumpWidget(
         MaterialApp(
           home: BlocProvider.value(
             value: mockContactsCubit,
-            child: ContactListPage(),
+            child: const ContactListPage(),
           ),
         ),
       );
@@ -80,14 +81,15 @@ void main() {
 
     testWidgets('should display error message when contacts loading fails',
         (WidgetTester tester) async {
-      final errorMessage = 'Failed to load contacts';
-      when(mockContactsCubit.state).thenReturn(ContactsError(errorMessage));
+      const errorMessage = 'Failed to load contacts';
+      when(() => mockContactsCubit.state)
+          .thenReturn(const ContactsError(errorMessage));
 
       await tester.pumpWidget(
         MaterialApp(
           home: BlocProvider.value(
             value: mockContactsCubit,
-            child: ContactListPage(),
+            child: const ContactListPage(),
           ),
         ),
       );
