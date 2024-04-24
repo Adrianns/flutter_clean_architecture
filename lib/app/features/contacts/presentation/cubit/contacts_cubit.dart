@@ -18,7 +18,7 @@ class ContactsCubit extends Cubit<ContactsState> {
     emit(ContactsLoading());
     final result = await getAllContactsUseCase.execute();
     result.fold(
-      (error) => emit(ContactsError(error as String)),
+      (Exception error) => emit(ContactsError(error.toString())),
       (contacts) => emit(ContactsLoaded(contacts)),
     );
   }

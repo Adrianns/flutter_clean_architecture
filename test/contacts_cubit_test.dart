@@ -44,7 +44,7 @@ void main() {
       act: (cubit) => cubit.getAllContacts(),
       expect: () => [
         ContactsLoading(),
-        ContactsLoaded(<Contact>[]),
+        const ContactsLoaded(<Contact>[]),
       ],
     );
 
@@ -52,13 +52,13 @@ void main() {
       'getAllContacts should emit ContactsLoading and ContactsError',
       build: () {
         when(mockGetAllContactsUseCase.execute)
-            .thenAnswer((_) async => Either.left(Exception()));
+            .thenAnswer((_) async => Either.left(Exception('oops!')));
         return contactsCubit;
       },
       act: (cubit) => cubit.getAllContacts(),
       expect: () => [
         ContactsLoading(),
-        ContactsError('Error'),
+        ContactsError(Exception('oops!').toString()),
       ],
     );
   });
