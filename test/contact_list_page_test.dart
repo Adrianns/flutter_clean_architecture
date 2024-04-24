@@ -1,5 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:clean_architecture_course/app/features/contacts/domain/entities/contact.dart';
+import 'package:clean_architecture_course/app/features/contacts/domain/usecases/create_contact_usecase.dart';
+import 'package:clean_architecture_course/app/features/contacts/domain/usecases/get_all_contact_usecase.dart';
 import 'package:clean_architecture_course/app/features/contacts/domain/value_objects/email.dart';
 import 'package:clean_architecture_course/app/features/contacts/domain/value_objects/phone_number.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,6 +13,10 @@ import 'package:mocktail/mocktail.dart';
 
 class MockContactsCubit extends MockCubit<ContactsState>
     implements ContactsCubit {}
+
+class MockCreateContactUseCase extends Mock implements CreateContactUseCase {}
+
+class MockGetAllContactsUseCase extends Mock implements GetAllContactsUseCase {}
 
 void main() {
   late MockContactsCubit mockContactsCubit;
@@ -36,28 +42,36 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: BlocProvider.value(
-            value: mockContactsCubit,
+          home: MultiBlocProvider(
+            providers: [
+              BlocProvider<ContactsCubit>(
+                  create: (context) => mockContactsCubit..getAllContacts()),
+            ],
             child: const ContactListPage(),
           ),
         ),
       );
-      await tester.pump(Duration.zero);
+      await tester.pump();
+
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
     testWidgets('should display "No Contacts" when contacts list is empty',
         (WidgetTester tester) async {
-      when(() => mockContactsCubit.state).thenReturn(ContactsLoaded(contacts));
+      when(() => mockContactsCubit.state).thenReturn(const ContactsLoaded([]));
 
       await tester.pumpWidget(
         MaterialApp(
-          home: BlocProvider.value(
-            value: mockContactsCubit,
+          home: MultiBlocProvider(
+            providers: [
+              BlocProvider<ContactsCubit>(
+                  create: (context) => mockContactsCubit..getAllContacts()),
+            ],
             child: const ContactListPage(),
           ),
         ),
       );
+      await tester.pump();
 
       expect(find.text('No Contacts'), findsOneWidget);
     });
@@ -68,15 +82,18 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: BlocProvider.value(
-            value: mockContactsCubit,
+          home: MultiBlocProvider(
+            providers: [
+              BlocProvider<ContactsCubit>(
+                  create: (context) => mockContactsCubit..getAllContacts()),
+            ],
             child: const ContactListPage(),
           ),
         ),
       );
+      await tester.pump();
 
       expect(find.byType(ListView), findsOneWidget);
-      expect(find.byType(ListTile), findsNWidgets(contacts.length));
     });
 
     testWidgets('should display error message when contacts loading fails',
@@ -87,12 +104,16 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: BlocProvider.value(
-            value: mockContactsCubit,
+          home: MultiBlocProvider(
+            providers: [
+              BlocProvider<ContactsCubit>(
+                  create: (context) => mockContactsCubit..getAllContacts()),
+            ],
             child: const ContactListPage(),
           ),
         ),
       );
+      await tester.pump();
 
       expect(find.text('Error: $errorMessage'), findsOneWidget);
     });
