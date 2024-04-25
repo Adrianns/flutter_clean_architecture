@@ -1,5 +1,5 @@
-import 'package:clean_architecture_course/app/features/contacts/domain/value_objects/email.dart';
-import 'package:clean_architecture_course/app/features/contacts/domain/value_objects/phone_number.dart';
+import 'package:clean_architecture_course/app/core/domain/value_objects/email.dart';
+import 'package:clean_architecture_course/app/core/domain/value_objects/phone_number.dart';
 import 'package:equatable/equatable.dart';
 
 class Contact extends Equatable {
