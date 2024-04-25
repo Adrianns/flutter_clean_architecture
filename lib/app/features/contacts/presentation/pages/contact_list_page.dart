@@ -2,6 +2,7 @@ import 'package:clean_architecture_course/app/features/contacts/presentation/cub
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/// A page that displays a list of contacts.
 class ContactListPage extends StatelessWidget {
   const ContactListPage({super.key});
 
