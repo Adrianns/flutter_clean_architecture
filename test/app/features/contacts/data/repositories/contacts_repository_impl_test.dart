@@ -8,13 +8,13 @@ import 'package:clean_architecture_course/app/features/contacts/domain/entities/
 void main() {
   late ContactsRepository userRepository;
 
-  final user = Contact(
+  final contact = Contact(
     id: '1',
     name: 'John Doe',
     email: Email('john.doe@example.com'),
     phone: PhoneNumber('+59892232265'),
   );
-  final user2 = Contact(
+  final contact2 = Contact(
     id: '1',
     name: 'Jane Smith',
     email: Email('jane.smith@example.com'),
@@ -26,13 +26,13 @@ void main() {
 
   group('UserRepository', () {
     test('should create a user and return a user', () {
-      final result = userRepository.createContact(user);
+      final result = userRepository.createContact(contact);
       expect(result.isRight, true);
     });
 
     test('should return a list of users when there are users', () {
-      userRepository.createContact(user);
-      userRepository.createContact(user2);
+      userRepository.createContact(contact);
+      userRepository.createContact(contact2);
       final result = userRepository.getAllContacts();
       expect(result.fold((l) => null, (r) => r), isA<List>());
     });
