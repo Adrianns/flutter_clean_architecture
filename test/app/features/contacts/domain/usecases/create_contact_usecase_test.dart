@@ -12,6 +12,7 @@ class MockContactsRepository extends Mock implements ContactsRepository {}
 void main() {
   late ContactsRepository repository;
   late CreateContactUseCase useCase;
+
   final contact = Contact(
     id: '1',
     name: 'John Doe',
@@ -24,20 +25,20 @@ void main() {
     useCase = CreateContactUseCase(repository);
   });
   group('CreateContactUseCase', () {
-    test('should create a contact successfully', () {
+    test('should create a contact successfully', () async {
       when(() => repository.createContact(contact))
-          .thenReturn(Either.right(contact));
+          .thenAnswer((_) => Future.value(Either.right(contact)));
 
-      final result = useCase.execute(contact);
+      final result = await useCase.execute(contact);
 
       expect(result.fold((left) => left, (right) => right), isA<Contact>());
     });
 
-    test('should return an exception when creating a contact fails', () {
+    test('should return an exception when creating a contact fails', () async {
       when(() => repository.createContact(contact))
-          .thenReturn(Either.left(Exception('Oops!')));
+          .thenAnswer((_) => Future.value(Either.left(Exception('Oops!'))));
 
-      final result = useCase.execute(contact);
+      final result = await useCase.execute(contact);
 
       expect(result.fold((left) => left, (right) => right), isA<Exception>());
     });

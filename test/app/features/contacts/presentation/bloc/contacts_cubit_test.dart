@@ -1,4 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:clean_architecture_course/app/core/domain/value_objects/email.dart';
+import 'package:clean_architecture_course/app/core/domain/value_objects/phone_number.dart';
 import 'package:clean_architecture_course/app/core/utils/either.dart';
 import 'package:clean_architecture_course/app/features/contacts/domain/entities/contact.dart';
 import 'package:clean_architecture_course/app/features/contacts/domain/usecases/create_contact_usecase.dart';
@@ -16,6 +18,13 @@ void main() {
     late ContactsCubit contactsCubit;
     late MockCreateContactUseCase mockCreateContactUseCase;
     late MockGetAllContactsUseCase mockGetAllContactsUseCase;
+
+    final contact = Contact(
+      id: '1',
+      name: 'John Doe',
+      email: Email('john.doe@example.com'),
+      phone: PhoneNumber('+59892232265'),
+    );
 
     setUp(() {
       mockCreateContactUseCase = MockCreateContactUseCase();
@@ -59,6 +68,20 @@ void main() {
       expect: () => [
         ContactsLoading(),
         ContactsError(Exception('oops!').toString()),
+      ],
+    );
+
+    blocTest<ContactsCubit, ContactsState>(
+      'createContact should emit ContactsLoading and ContactsLoaded',
+      build: () {
+        when(() => mockCreateContactUseCase.execute(contact))
+            .thenAnswer((_) async => Future.value(Either.right(contact)));
+        return contactsCubit;
+      },
+      act: (cubit) => cubit.createContact(contact),
+      expect: () => [
+        ContactsLoading(),
+        const ContactsLoaded(<Contact>[]),
       ],
     );
   });
