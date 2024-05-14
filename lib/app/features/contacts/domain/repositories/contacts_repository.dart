@@ -7,11 +7,11 @@ abstract class ContactsRepository {
   ///
   /// Returns an [Either] object containing either an [Exception] if an error occurred,
   /// or a [Contact] object representing the created contact.
-  Either<Exception, Contact> createContact(Contact user);
+  Future<Either<Exception, Contact>> createContact(Contact user);
 
   /// Retrieves all contacts.
   ///
   /// Returns an [Either] object containing either an [Exception] if an error occurred,
   /// or a list of [Contact] objects representing all the contacts.
-  Either<Exception, List<Contact>> getAllContacts();
+  Future<Either<Exception, List<Contact>>> getAllContacts();
 }

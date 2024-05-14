@@ -16,13 +16,21 @@ class ContactsCubit extends Cubit<ContactsState> {
     required this.getAllContactsUseCase,
   }) : super(ContactsInitial());
 
-  /// Retrieves all contacts and updates the state accordingly.
   void getAllContacts() async {
     emit(ContactsLoading());
     final result = await getAllContactsUseCase.execute();
     result.fold(
       (Exception error) => emit(ContactsError(error.toString())),
       (contacts) => emit(ContactsLoaded(contacts)),
+    );
+  }
+
+  void createContact(Contact contact) async {
+    emit(ContactsLoading());
+    final result = await createContactUseCase.execute(contact);
+    result.fold(
+      (Exception error) => emit(ContactsError(error.toString())),
+      (contact) => emit(const ContactsLoaded([])),
     );
   }
 }

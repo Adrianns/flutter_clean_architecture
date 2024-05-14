@@ -13,7 +13,7 @@ class GetAllContactsUseCase {
   /// Returns a [Either] object that contains either an [Exception] if an error occurred,
   /// or a [List] of [Contact] objects if the operation was successful.
   Future<Either<Exception, List<Contact>>> execute() async {
-    final users = userRepository.getAllContacts();
-    return users;
+    final contacts = await userRepository.getAllContacts();
+    return contacts;
   }
 }

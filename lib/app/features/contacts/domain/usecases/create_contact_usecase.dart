@@ -7,7 +7,7 @@ class CreateContactUseCase {
 
   CreateContactUseCase(this.userRepository);
 
-  Either<Exception, Contact> execute(Contact user) {
-    return userRepository.createContact(user);
+  Future<Either<Exception, Contact>> execute(Contact user) async {
+    return await userRepository.createContact(user);
   }
 }
