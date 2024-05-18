@@ -1,6 +1,6 @@
 part of 'contacts_cubit.dart';
 
-class ContactsState extends Equatable {
+sealed class ContactsState extends Equatable {
   const ContactsState();
 
   @override
